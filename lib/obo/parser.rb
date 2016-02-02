@@ -6,8 +6,12 @@ module Obo
     STANZA_START = /^\[(.*?)\]/
     TAG_VALUE    = /^(.*?):\s*([^!]*)\s*(.*?)\n/
 
-    def initialize(filename)
-      @io = File.open(filename)
+    def initialize(input)
+      if input.is_a? IO
+        @io = input
+      else
+        @io = File.open input
+      end
     end
 
     def elements(io = @io)
@@ -38,7 +42,7 @@ module Obo
     end
 
     def rewind(io = @io)
-      io.pos = 0
+      io.pos = 0 if io.is_a? File
     end
 
   end
