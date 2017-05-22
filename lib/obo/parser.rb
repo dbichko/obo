@@ -7,7 +7,7 @@ module Obo
     TAG_VALUE    = /^(.*?):\s*([^!]*)\s*(.*?)\n/
 
     def initialize(input)
-      if input.is_a? IO
+      if input.respond_to? :readline
         @io = input
       else
         @io = File.open input
